@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="style.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InterviewPrepX</title>
@@ -30,6 +31,16 @@
       color: black;
       transition: background-color 0.3s ease;
     }
+    /* DARK MODE NAV LINKS */
+.dark-mode .nav-link {
+  color: white !important;
+}
+
+/* LIGHT MODE NAV LINKS */
+.light-mode .nav-link {
+  color: black !important;
+}
+
 
     .navbar {
       transition: background-color 0.3s ease;
@@ -39,82 +50,79 @@
 
 <body class="dark-mode">
 
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg dark-mode">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg dark-mode">
+  <div class="container-fluid">
 
-      <a class="navbar-brand text-info" href="#">InterPrepX</a>
+    <!-- BRAND -->
+    <a class="navbar-brand text-info" href="#">InterPrepX</a>
 
-      <div class="collapse navbar-collapse d-none d-lg-flex">
-        <ul class="navbar-nav ms-auto me-3">
-          <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Profile</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
-          <li>
-            
-          </li>
-        </ul>
-      </div>
-
-      <form class="d-flex me-3">
-        <input class="form-control form-control-sm fix_backg" type="search" placeholder="Search">
-      </form>
-
-      <!-- TOGGLE -->
-      <div class="form-check form-switch me-3">
-        <input class="form-check-input" type="checkbox" id="modeToggle">
-      </div>
-
-      <button class="navbar-toggler fix_backg" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasMenu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-    </div>
-  </nav>
-
-  <!-- OFFCANVAS -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title">Menu</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Leaderboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+    <!-- DESKTOP MENU -->
+    <div class="collapse navbar-collapse d-none d-lg-flex">
+      <ul class="navbar-nav ms-auto me-3">
+        <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Profile</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Leaderboard</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
       </ul>
     </div>
-  </div>
-    <!-- OFFCANVAS MENU -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-        </div>
 
-        <div class="offcanvas-body">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Leaderboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-            </ul>
-        </div>
+    <!-- SEARCH (LOCKED TO RIGHT) -->
+    <form class="d-flex ms-auto me-3">
+      <input class="form-control form-control-sm fix_backg"
+             type="search"
+             placeholder="Search">
+    </form>
+
+    <!-- TOGGLER -->
+    <button class="navbar-toggler fix_backg"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </div>
+</nav>
+
+
+<!-- OFFCANVAS MENU -->
+<div class="offcanvas offcanvas-end dark-mode" tabindex="-1" id="offcanvasMenu">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column">
+
+    <!-- MENU ITEMS -->
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#">Profile</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#">Leaderboard</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
+    </ul>
+
+    <!-- THEME TOGGLE (BOTTOM) -->
+    <div class="mt-auto pt-3 border-top">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeToggle">
+        <label class="form-check-label ms-2">Light Mode</label>
+      </div>
     </div>
+
+  </div>
+</div>
+
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
-                <img src="image/download.png" class="d-block w-100 carousel-img" alt="carousel image">
+                <img src="download.png" class="d-block w-100 carousel-img" alt="carousel image">
             </div>
             <div class="carousel-item" data-bs-interval="2000">
-                <img src="image/download.png " class="d-block w-100 carousel-img" alt="carousel image">
+                <img src="download.png " class="d-block w-100 carousel-img" alt="carousel image">
             </div>
             <div class="carousel-item">
-                <img src="image/download.png" class="d-block w-100 carousel-img" alt="carousel image">
+                <img src="download.png" class="d-block w-100 carousel-img" alt="carousel image">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
@@ -182,20 +190,24 @@
     </section>
   <!-- JS (CORRECT PLACE) -->
   <script>
-    const toggle = document.getElementById("modeToggle");
-    const body = document.body;
-    const navbar = document.querySelector(".navbar");
+  const toggle = document.getElementById("modeToggle");
+  const body = document.body;
+  const navbar = document.querySelector(".navbar");
+  const offcanvas = document.getElementById("offcanvasMenu");
 
-    toggle.addEventListener("change", () => {
-      if (toggle.checked) {
-        body.classList.replace("dark-mode", "light-mode");
-        navbar.classList.replace("dark-mode", "light-mode");
-      } else {
-        body.classList.replace("light-mode", "dark-mode");
-        navbar.classList.replace("light-mode", "dark-mode");
-      }
-    });
-  </script>
+  toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+      body.classList.replace("dark-mode", "light-mode");
+      navbar.classList.replace("dark-mode", "light-mode");
+      offcanvas.classList.replace("dark-mode", "light-mode");
+    } else {
+      body.classList.replace("light-mode", "dark-mode");
+      navbar.classList.replace("light-mode", "dark-mode");
+      offcanvas.classList.replace("light-mode", "dark-mode");
+    }
+  });
+</script>
+
 
 </body>
 </html>
