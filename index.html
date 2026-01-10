@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <link rel="stylesheet" href="style.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InterviewPrepX</title>
-
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <style>
     .fix_backg {
-      background-color: #00FFFF;
+      background-color: green;
     }
-
     /* DARK MODE */
     .dark-mode {
       background-color: black;
       color: white;
       transition: background-color 0.3s ease;
     }
-
     /* LIGHT MODE */
     .light-mode {
       background-color: white;
@@ -35,27 +30,121 @@
 .dark-mode .nav-link {
   color: white !important;
 }
-
 /* LIGHT MODE NAV LINKS */
 .light-mode .nav-link {
   color: black !important;
 }
-
-
+  .dark-mode .brand-text {
+  color: white;
+}
+.light-mode .brand-text {
+  color: black;
+}
     .navbar {
       transition: background-color 0.3s ease;
     }
+  /* SEARCH ICON */
+.search-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #0d6efd;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.search-icon:hover {
+  background: #084298;
+}
+/* SEARCH DROPDOWN */
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  background: transparent;
+  display: none;
+  z-index: 1000;
+}
+/* ANGLED RED BOX */
+.search-box {
+  background: linear-gradient(135deg, #dc3545 90%, transparent 90%);
+  padding: 20px;
+  width: 100%;
+}
+/* INPUT */
+.search-box input {
+  width: 300px;
+  max-width: 90%;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+}
+.navbar{
+    position: relative;
+}
+/* SEARCH CONTAINER */
+.search-container {
+  position: relative;
+}
+/* SEARCH BAR UNDER NAVBAR */
+.search-overlay {
+  position: absolute;
+  top: 100%; /* directly below navbar */
+  left: 0;
+  width: 100%; /* FULL navbar width */
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 15px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 1050;
+}
+/* ACTIVE STATE */
+.search-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* SEARCH INPUT */
+.search-overlay input {
+  flex: 1;
+  padding: 12px 18px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+/* CLOSE BUTTON */
+.search-overlay button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+@media (max-width: 991px) {
+  .search-container {
+    margin-right: 8px;
+  }
+}
   </style>
 </head>
-
 <body class="dark-mode">
-
 <nav class="navbar navbar-expand-lg dark-mode">
   <div class="container-fluid">
-
     <!-- BRAND -->
-    <a class="navbar-brand text-info" href="#">InterPrepX</a>
-
+    <a class="navbar-brand brand-text" href="#">InterPrepX</a>
     <!-- DESKTOP MENU -->
     <div class="collapse navbar-collapse d-none d-lg-flex">
       <ul class="navbar-nav ms-auto me-3">
@@ -65,35 +154,38 @@
         <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
       </ul>
     </div>
-
-    <!-- SEARCH (LOCKED TO RIGHT) -->
-    <form class="d-flex ms-auto me-3">
-      <input class="form-control form-control-sm fix_backg"
-             type="search"
-             placeholder="Search">
-    </form>
-
-    <!-- TOGGLER -->
-    <button class="navbar-toggler fix_backg"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasMenu">
-      <span class="navbar-toggler-icon"></span>
+   <!-- SEARCH CONTAINER -->
+<!-- RIGHT SIDE ICONS -->
+<div class="ms-auto d-flex align-items-center">
+  <div class="search-container me-2">
+    <button class="search-icon" id="searchToggle" type="button">
+      <i class="bi bi-search"></i>
     </button>
-
+  </div>
+ <div class="search-overlay" id="searchOverlay">
+    <input type="text" placeholder="Search..." />
+    <button id="closeSearch">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+    <!-- TOGGLER -->
+  <button class="navbar-toggler fix_backg"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasMenu"
+          aria-controls="offcanvasMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</div>
   </div>
 </nav>
-
-
 <!-- OFFCANVAS MENU -->
 <div class="offcanvas offcanvas-end dark-mode" tabindex="-1" id="offcanvasMenu">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title">Menu</h5>
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
   </div>
-
   <div class="offcanvas-body d-flex flex-column">
-
     <!-- MENU ITEMS -->
     <ul class="navbar-nav">
       <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
@@ -101,7 +193,6 @@
       <li class="nav-item"><a class="nav-link text-white" href="#">Leaderboard</a></li>
       <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
     </ul>
-
     <!-- THEME TOGGLE (BOTTOM) -->
     <div class="mt-auto pt-3 border-top">
       <div class="form-check form-switch">
@@ -109,10 +200,8 @@
         <label class="form-check-label ms-2">Light Mode</label>
       </div>
     </div>
-
   </div>
 </div>
-
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
@@ -141,60 +230,65 @@
         <h1>sfdgfgjl;k</h1>
         <p>aersdhjlj;k</p>
     </div>
-
     </div>
-
     <section class="container-fluid .dark-mode">
-
         <div class="container-fluid text-center">
             <div class="row row-cols-md-2 row-cols-lg-3 row-cols-sm-2">
                 <div class="col my-2 ">
                     <div class="domain-card fix_backg" onclick="openDomain('cs')">
-                        <img src="assets/cs.png" alt="CS Fundamentals">
+                        <img src="https://www.google.com/search?q=Computer+Science+Fundamentals+logo&client=ms-android-vivo-terr1-rso2&hs=LM8o&sca_esv=e144664a5f0fe030&sxsrf=ANbL-n55xGZk4yToubkkFHIzkRI1HHNW_w:1767977152256&udm=2&sa=X&ved=2ahUKEwjAjIaR9P6RAxVYTWcHHb0QM4kQ7Al6BAgUEAM&biw=436&bih=934&dpr=2.48&aic=0#ip=1&sv=CAMSyQQanAQK9gEKuQEStgEKd0FNbjMteVQ2MUVRUzR0LUxzdTQ5cGlGblVPSjJCeHpRMU1mSFlqbnNoYXNwd2E1Y0dIbDhCQzVLaXRVRTk3amN1aEZaekx1emN3TmxFcW5YLVhvc2praG9Nb25pTFVHcGhSdVg2Snl5WGF1LU5PYjlWYk5Kb3RJEhdFVEZoYWU2SlBMbkk1X0VQb0tYWW1ROBoiQUpLTEZtSzBEZTIwWEZTSnJlb2l1Qmd1Y1ZzV1ctdWltQRIDODQ5GgEzIicKAXESIkNvbXB1dGVyIFNjaWVuY2UgRnVuZGFtZW50YWxzIGxvZ28iBwoDdGJzEgASjgIKzwESzAEKjAFBTW4zLXlRZEhSU3RmVGp0amstbGVoTDRPRnJjdGc2Z2d6czVKUmNqRzMycVV2dTBHd1JTeVhaelVlYUhBazVDSlBhLUNVc0Y3RUhaTXcwWVVGQWNfQk9ON0l0TlFRSlBhSUpZM0FUa0FHT0VmdGdVRFpWd3V1clZkMmIzdHFEX1pmNFd1TWpFelIxcxIXRVRGaGFlNkpQTG5JNV9FUG9LWFltUTgaIkFKS0xGbUo1b0lEQmM5dGdrNDViMDUwSEJ0VHpnZDVESlESBDQ2OTgaATMiGAoGaW1nZGlpEg5JT2VGQ3pEV3dLWlVuTSIXCgVkb2NpZBIOdHNKc0FfS01DbW9qSk0qEGUtSU9lRkN6RFd3S1pVbk0gBCokCg5hbWZnNUtsN1poVkU3TRIQZS1JT2VGQ3pEV3dLWlVuTRgAMAEYByC10pvqBTABSgoIAhACGAIgAigC" alt="CS Fundamentals">
                         <h3>Computer Science Fundamentals</h3>
                     </div>
                 </div>
                 <div class="col my-2">
                     <div class="domain-card fix_backg" onclick="openDomain('dsa')">
-                        <img src="assets/dsa.jpg" alt="DSA">
+                        <img src="https://www.google.com/search?client=ms-android-vivo-terr1-rso2&hs=OM8o&sca_esv=e144664a5f0fe030&sxsrf=ANbL-n700pbakrl_iDDjwkXAYt60MSIkqw:1767977301652&udm=2&fbs=ADc_l-YQanUcJSoe62luYRIM6gsUdrPbLi6w63glmGbBPeGKs4L7_ndoqDk-0jwJiw9KyfvquLvwel5d4wRoroBFWxs0qimP2gjI9FJHfLGNM181d-ScN6hVwfgckaSF4FmNou9SF21Hq3Lte6OD9fdyBREKzqAxi7dCBc-G3JO9WCzf2gfWBYbRKnDtbsglRP2zS-5puwb3CbyzbV8kUK6Dnip3F3K9iT11gTdgyU8HMB-nWnFzaXs&q=Data+Structures+%26+Algorithms+logo&sa=X&ved=2ahUKEwjiwaTY9P6RAxXJe2wGHVQUHGkQtKgLegQIFBAB&biw=436&bih=878&dpr=2.48&aic=0" alt="DSA">
                         <h3>Data Structures & Algorithms</h3>
                     </div>
                 </div>
-                <div class="col  my-2">
-                    <div class="domain-card fix_backg"  onclick="openDomain('languages')">
-                        <img src="assets/prog.jpg" alt="Programming">
+                <div class="col my-2">
+                    <div class="domain-card fix_backg" onclick="openDomain('languages')">
+                        <img src="https://www.google.com/search?client=ms-android-vivo-terr1-rso2&hs=3gn9&sca_esv=e144664a5f0fe030&sxsrf=ANbL-n4neeHWhBaccGSJ8Wy4Fnlh_ga9-Q:1767977343582&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3p-ML-906rRL_m6h4jR-tdCeKIwp94h-QiJ4lJfObsqUXzcb1HkhQ2i0oCa-01vf5DRd0GosEHwAxNN7m-q8HQalZL8TIkBsdcpXKbLsZC_5nSqN9p-BVg_3RXoZLmS4A1K4W87uSsEsAQ9p5zXA2zk5ibCNQTUEWjgYAc5oDx6uLv4mO3bFsPwqCe51PLgNPzlyaaE&q=programming+languages+logo&sa=X&sqi=2&ved=2ahUKEwjn3KPs9P6RAxWRXGwGHXWcLCoQtKgLegQIExAB&biw=436&bih=878&dpr=2.48&aic=0" alt="Programming">
                         <h3>Programming Languages</h3>
                     </div>
                 </div>
-                <div class="col  my-2">
-                    <div class="domain-card fix_backg"  onclick="openDomain('web')">
-                        <img src="assets/web.webp" alt="Web Development">
+                <div class="col my-2">
+                    <div class="domain-card fix_backg" onclick="openDomain('web')">
+                        <img src="https://www.google.com/search?q=Web+Development+logo&oq=Web+Development+logo&gs_lcrp=EgZjaHJvbWUyDwgAEEUYORiRAhiABBiKBTIHCAEQABiABDIHCAIQABiABDIMCAMQABgUGIcCGIAEMgcIBBAAGIAEMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB4yCAgKEAAYFhgeMggICxAAGBYYHjIICAwQABgWGB4yCAgNEAAYFhgeMggIDhAAGBYYHtIBCDIzODJqMWo5qAIOsAIB8QVl0x2sqgwtzvEFZdMdrKoMLc4&client=ms-android-vivo-terr1-rso2&sourceid=chrome-mobile&ie=UTF-8" alt="Web Development">
                         <h3>Web Development</h3>
                     </div>
                 </div>
-                <div class="col  my-2">
-                    <div class="domain-card fix_backg"  onclick="openDomain('fullstack')">
-                        <img src="assets/fswd.jpg" alt="Full Stack">
+                <div class="col my-2">
+                    <div class="domain-card fix_backg" onclick="openDomain('fullstack')">
+                        <img src="https://www.google.com/search?client=ms-android-vivo-terr1-rso2&hs=m1SU&sca_esv=e144664a5f0fe030&sxsrf=ANbL-n7IVg7VB3rO98h75ID94m9sbjjVsQ:1767977422429&udm=2&fbs=ADc_l-bZnt6jMmErT-KRarIgXyuyzQTJF2PfkaOcTEalUPOVQOtlzownaoM46W2pScWjtBcKyqainOvZFRcARZ91nyFV48q8DPbYg6jH3VI7vPCEPKmiI_H3YyfVsJcTpAiu53IfKgR-xJp8dOFa-C6CzrWYGL7RqZYxyDn1o24SDJsZb22tbncR0G3MZ-rBeKFuZ94dXGH0Y6fXw3AohIL8OxgYbuMIXNurF51spN3gSGAf24n4l_g&q=full+stack+development+logo&sa=X&sqi=2&ved=2ahUKEwjSmvCR9f6RAxVoRmcHHR4IPfgQtKgLegQIExAB&biw=436&bih=878&dpr=2.48&aic=0" alt="Full Stack">
                         <h3>Full Stack Development</h3>
                     </div>
                 </div>
-                <div class="col  my-2">
+                <div class="col my-2">
                     <div class="domain-card fix_backg"onclick="openDomain('fullstack')">
-                        <img src="assets/fswd.jpg" alt="Full Stack">
+                        <img src="https://www.google.com/search?q=Version+contorls+logo&oq=Version+contorls+logo&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgNGIAEMggIAhAAGBYYHjIICAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yCAgHEAAYFhgeMggICBAAGBYYHjIICAkQABgWGB4yCAgKEAAYFhgeMggICxAAGBYYHjIHCAwQIRiPAjIHCA0QIRiPAtIBCDIyNDdqMGo5qAIOsAIB8QUzfDP1XEejcg&client=ms-android-vivo-terr1-rso2&sourceid=chrome-mobile&ie=UTF-8" alt="Full Stack">
                         <h3>Version contorls</h3>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
   <!-- JS (CORRECT PLACE) -->
   <script>
+  const searchToggle = document.getElementById("searchToggle");
+  const searchOverlay = document.getElementById("searchOverlay");
+  const closeSearch = document.getElementById("closeSearch");
+  searchToggle.addEventListener("click", () => {
+    searchOverlay.classList.add("active");
+    searchOverlay.querySelector("input").focus();
+  });
+  closeSearch.addEventListener("click", () => {
+    searchOverlay.classList.remove("active");
+  });
   const toggle = document.getElementById("modeToggle");
   const body = document.body;
   const navbar = document.querySelector(".navbar");
   const offcanvas = document.getElementById("offcanvasMenu");
-
   toggle.addEventListener("change", () => {
     if (toggle.checked) {
       body.classList.replace("dark-mode", "light-mode");
@@ -207,7 +301,5 @@
     }
   });
 </script>
-
-
 </body>
 </html>
