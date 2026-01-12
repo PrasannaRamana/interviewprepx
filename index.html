@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     .fix_backg {
-      background-color: green;
+      background-color: #AF7AD5;
     }
     /* DARK MODE */
     .dark-mode {
@@ -43,100 +43,51 @@
     .navbar {
       transition: background-color 0.3s ease;
     }
-  /* SEARCH ICON */
-.search-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   background: #0d6efd;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 44px;
+  height: 44px;
+  transition: width 0.35s ease;
+  flex-shrink: 0;
+}
+
+.search-wrapper.active {
+  width: 240px;
+}
+
+.search-input {
+  width: 0;
+  opacity: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  height: 100%;
+  padding: 0 12px;
+  transition: 0.35s ease;
+}
+
+.search-wrapper.active .search-input {
+  width: 100%;
+  opacity: 1;
+}
+
+.search-icon {
+  padding:20px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: 0.3s ease;
-}
-.search-icon:hover {
-  background: #084298;
-}
-/* SEARCH DROPDOWN */
-.search-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 100%;
-  background: transparent;
-  display: none;
-  z-index: 1000;
-}
-/* ANGLED RED BOX */
-.search-box {
-  background: linear-gradient(135deg, #dc3545 90%, transparent 90%);
-  padding: 20px;
-  width: 100%;
-}
-/* INPUT */
-.search-box input {
-  width: 300px;
-  max-width: 90%;
-  padding: 10px 15px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-}
-.navbar{
-    position: relative;
-}
-/* SEARCH CONTAINER */
-.search-container {
-  position: relative;
-}
-/* SEARCH BAR UNDER NAVBAR */
-.search-overlay {
-  position: absolute;
-  top: 100%; /* directly below navbar */
-  left: 0;
-  width: 100%; /* FULL navbar width */
-  height: 70px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 15px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.45);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s ease;
-  z-index: 1050;
-}
-/* ACTIVE STATE */
-.search-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-/* SEARCH INPUT */
-.search-overlay input {
-  flex: 1;
-  padding: 12px 18px;
-  border-radius: 30px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-}
-/* CLOSE BUTTON */
-.search-overlay button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-}
-@media (max-width: 991px) {
-  .search-container {
-    margin-right: 8px;
-  }
 }
   </style>
 </head>
@@ -156,24 +107,18 @@
     </div>
    <!-- SEARCH CONTAINER -->
 <!-- RIGHT SIDE ICONS -->
-<div class="ms-auto d-flex align-items-center">
-  <div class="search-container me-2">
-    <button class="search-icon" id="searchToggle" type="button">
-      <i class="bi bi-search"></i>
+<div class="ms-auto d-flex align-items-center gap-2 nav-icons ">
+  <div class="search-wrapper " id="searchWrapper">
+    <input type="text" class="search-input " placeholder="Search..." />
+    <button class="search-icon " id="searchToggle" type="button">
+      <i class="bi bi-search "></i>
     </button>
   </div>
- <div class="search-overlay" id="searchOverlay">
-    <input type="text" placeholder="Search..." />
-    <button id="closeSearch">
-      <i class="bi bi-x-lg"></i>
-    </button>
-  </div>
-    <!-- TOGGLER -->
+
   <button class="navbar-toggler fix_backg"
           type="button"
           data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasMenu"
-          aria-controls="offcanvasMenu">
+          data-bs-target="#offcanvasMenu">
     <span class="navbar-toggler-icon"></span>
   </button>
 </div>
@@ -183,7 +128,7 @@
 <div class="offcanvas offcanvas-end dark-mode" tabindex="-1" id="offcanvasMenu">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    <button type="button" class="btn-close btn-close-white dark_mode" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column">
     <!-- MENU ITEMS -->
@@ -275,16 +220,14 @@
     </section>
   <!-- JS (CORRECT PLACE) -->
   <script>
-  const searchToggle = document.getElementById("searchToggle");
-  const searchOverlay = document.getElementById("searchOverlay");
-  const closeSearch = document.getElementById("closeSearch");
-  searchToggle.addEventListener("click", () => {
-    searchOverlay.classList.add("active");
-    searchOverlay.querySelector("input").focus();
-  });
-  closeSearch.addEventListener("click", () => {
-    searchOverlay.classList.remove("active");
-  });
+  const searchWrapper = document.querySelector(".search-wrapper");
+const searchInput = document.querySelector(".search-input");
+const searchToggle = document.getElementById("searchToggle");
+
+searchToggle.addEventListener("click", () => {
+  searchWrapper.classList.toggle("active");
+  searchInput.focus();
+});
   const toggle = document.getElementById("modeToggle");
   const body = document.body;
   const navbar = document.querySelector(".navbar");
